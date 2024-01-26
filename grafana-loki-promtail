@@ -13,8 +13,13 @@ sudo apt-get update
 
 # Install the latest OSS release:
 sudo apt-get install grafana
+sudo /bin/systemctl start grafana-server
+sudo /bin/systemctl enable grafana-server
 #To start Grafana Server
 sudo /bin/systemctl status grafana-server
+sudo apt-get install docker.io
+mkdir grafana_configs
+cd grafana_config
 
 
 
@@ -29,6 +34,8 @@ Run Loki Docker container
 
 docker run -d --name loki -v $(pwd):/mnt/config -p 3100:3100 grafana/loki:2.8.0 --config.file=/mnt/config/loki-config.yaml
 
+http://<ip>:3100/ready
+http://<ip>:3100/metrics
 Download Promtail Config
 
 wget https://raw.githubusercontent.com/grafana/loki/v2.8.0/clients/cmd/promtail/promtail-docker-config.yaml -O promtail-config.yaml
